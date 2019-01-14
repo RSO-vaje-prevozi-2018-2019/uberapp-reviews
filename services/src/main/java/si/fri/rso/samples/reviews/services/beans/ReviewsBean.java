@@ -1,5 +1,6 @@
 package si.fri.rso.samples.reviews.services.beans;
 
+import si.fri.rso.samples.reviews.models.dtos.User;
 import si.fri.rso.samples.reviews.models.entities.Review;
 import si.fri.rso.samples.reviews.services.configuration.AppProperties;
 
@@ -27,6 +28,9 @@ public class ReviewsBean {
 
     @Inject
     private ReviewsBean reviewsBean;
+
+    @Inject
+    private ExternalBean externalBean;
 
     private Client httpClient;
 
@@ -57,7 +61,28 @@ public class ReviewsBean {
         return review;
     }
 
-    public Review createReview(Review review) {
+    public boolean createReview(Review review) {
+
+        //ali je bil user res na tej vožnji?
+        List<User> users = externalBean.getUsersFromRide(review.getRideId());
+
+        if (users.stream().noneMatch(x -> x.getId() == review.getAuthorId())) {//ne
+            return false;
+        }
+
+        //kreiraj review
+        createReviewDB(review);
+
+        //ali naj kreiram notification?
+
+        //kreiraj notification
+        boolean success = externalBean.createNotification();
+
+        return success;
+
+    }
+
+    public Review createReviewDB(Review review) {
 
         try {
             beginTx();

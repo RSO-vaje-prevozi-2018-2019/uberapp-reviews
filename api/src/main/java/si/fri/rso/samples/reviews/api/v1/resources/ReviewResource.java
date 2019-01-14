@@ -54,5 +54,24 @@ public class ReviewResource {
         return Response.status(Response.Status.OK).entity(review).build();
     }
 
+    @POST
+    @Path("create")
+    public Response createReview(Review review) {
+
+        if (review.getAuthorId() == null || review.getRating() == null || review.getReview() == null || review.getRideId() == null) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+
+        boolean success = reviewsBean.createReview(review);
+
+        if (success) {
+            return Response.status(Response.Status.CREATED).build();
+        } else {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+
+    }
+
+
 
 }

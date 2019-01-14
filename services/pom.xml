@@ -50,6 +50,11 @@
             <groupId>si.fri.rso.samples</groupId>
             <artifactId>reviews-models</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
