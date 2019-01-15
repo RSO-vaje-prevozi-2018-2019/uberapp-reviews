@@ -47,7 +47,7 @@ public class ExternalBean {
     @Inject
     @DiscoverService(value = "uberapp-rides")
     private Optional<String> basePathRides;
-
+ 
     public List<User> getUsersFromRide(int rideId) {
 
         //hardcoded - todo
