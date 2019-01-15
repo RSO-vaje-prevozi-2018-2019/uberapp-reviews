@@ -62,10 +62,10 @@ public class ReviewResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        boolean success = reviewsBean.createReview(review);
+        Review newReview = reviewsBean.createReview(review);
 
-        if (success) {
-            return Response.status(Response.Status.CREATED).build();
+        if (newReview != null && newReview.getId() != null) {
+            return Response.status(Response.Status.CREATED).entity(newReview).build();
         } else {
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
         }

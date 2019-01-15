@@ -19,6 +19,12 @@ public class User {
     private String messageGroupId;
     private Instant lastLoggedIn;
 
+    public User(){}
+
+    public User (int id) {
+        this.id = id;
+    }
+
 
 
     public Integer getId() {
@@ -59,7 +65,7 @@ public class User {
         return email;
     }
 
-    public void setEmail(String status) {
+    public void setEmail(String email) {
         this.email = email;
     }
 

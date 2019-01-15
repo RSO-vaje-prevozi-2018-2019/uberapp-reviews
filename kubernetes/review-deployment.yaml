@@ -30,7 +30,7 @@ spec:
           - name: KUMULUZEE_DATASOURCES0_PASSWORD
             value: postgres
         ports:
-        - containerPort: 8083
+        - containerPort: 8082
           name: server
           protocol: TCP
 

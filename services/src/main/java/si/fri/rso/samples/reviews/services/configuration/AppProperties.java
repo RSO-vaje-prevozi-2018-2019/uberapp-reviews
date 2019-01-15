@@ -15,6 +15,9 @@ public class AppProperties {
     @ConfigValue(watch = true)
     private boolean healthy;
 
+    @ConfigValue(value = "enable-notifications", watch = true)
+    private boolean notificationsEnabled;
+
     public boolean isExternalServicesEnabled() {
         return externalServicesEnabled;
     }
@@ -29,5 +32,13 @@ public class AppProperties {
 
     public void setHealthy(boolean healthy) {
         this.healthy = healthy;
+    }
+
+    public boolean isNotificationsEnabled() {
+        return notificationsEnabled;
+    }
+
+    public void setNotificationsEnabled(boolean notificationsEnabled) {
+        this.notificationsEnabled = notificationsEnabled;
     }
 }

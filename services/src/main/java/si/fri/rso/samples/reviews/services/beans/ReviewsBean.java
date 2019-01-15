@@ -61,28 +61,36 @@ public class ReviewsBean {
         return review;
     }
 
-    public boolean createReview(Review review) {
+    public Review createReview(Review review) {
 
         //ali je bil user res na tej vožnji?
         List<User> users = externalBean.getUsersFromRide(review.getRideId());
 
         if (users.stream().noneMatch(x -> x.getId() == review.getAuthorId())) {//ne
-            return false;
+            return null;
         }
 
         //kreiraj review
-        createReviewDB(review);
+        Review newReview = createReviewDB(review);
 
+        System.out.println("ali kreiram notif" + appProperties.isNotificationsEnabled());
         //ali naj kreiram notification?
+        if (appProperties.isNotificationsEnabled()) {
+            System.out.println("notri");
+            int driveId = review.getRideId();
+            System.out.println("driveID: " + driveId);
+            int driverId = externalBean.getDriverId(driveId);
+            System.out.println("driver: " + driverId);
+            String text = "Na vašo vožnjo id: '" + driveId + "' je bila ustvarjena recenzija z oceno " + review.getRating() + ".";
+            boolean success = externalBean.createNotification( driverId,  driveId,  text);
+            System.out.println("ali je vse kuil: "+ success);
+        }
 
-        //kreiraj notification
-        boolean success = externalBean.createNotification();
-
-        return success;
+        return newReview;
 
     }
 
-    public Review createReviewDB(Review review) {
+    private Review createReviewDB(Review review) {
 
         try {
             beginTx();

@@ -60,3 +60,4 @@ app-properties:
   external-services:
     enabled: false
   healthy: true
+  enable-notifications: false
